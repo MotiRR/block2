@@ -2,7 +2,7 @@ BEGIN;
 
 DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users (id bigserial, name varchar(255), PRIMARY KEY (id));
-INSERT INTO buyers (name) VALUES
+INSERT INTO users (name) VALUES
 ('Alex'),
 ('Andrey'),
 ('Alice'),
@@ -12,12 +12,12 @@ INSERT INTO buyers (name) VALUES
 ('Denis'),
 ('Vlad');
 
-DROP TABLE IF EXISTS lots CASCADE;
-CREATE TABLE lots (id bigserial, name varchar(255), PRIMARY KEY (id));
-INSERT INTO lots (name) VALUES
-('Trixie'),
-('Patent'),
-('Yankee'),
-('Handicap');
+DROP TABLE IF EXISTS bets CASCADE;
+CREATE TABLE bets (id bigserial, name varchar(255), rate DECIMAL, version bigint, user_id bigint REFERENCES users (id), PRIMARY KEY (id));
+INSERT INTO bets (name, rate, version) VALUES
+('Trixie', 0, 0),
+('Patent', 0, 0),
+('Yankee', 0, 0),
+('Handicap', 0, 0);
 
 COMMIT;
