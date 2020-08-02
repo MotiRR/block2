@@ -18,24 +18,16 @@ public class ParallelHandler {
         users = service.getAllUsers();
     }
 
-    public void startOptimistic(int count, BigDecimal rate) {
+    public void start(int count, BigDecimal rate, LockModeType lockModeType) {
         long start = System.currentTimeMillis();
         BetDAO.countRollBack = 0L;
-        createThreads(count, rate, LockModeType.OPTIMISTIC);
-        System.out.format("Оптимистическая блокировка, время работы = %d мс, количество rollback = %d\n",
-                System.currentTimeMillis() - start,
-                BetDAO.countRollBack);
-
-    }
-
-    public void startPessimistic(int count, BigDecimal rate) {
-        long start = System.currentTimeMillis();
-        BetDAO.countRollBack = 0L;
-        createThreads(count, rate, LockModeType.PESSIMISTIC_WRITE);
-        System.out.format("Пессимистическая блокировка, время работы = %d мс, количество rollback = %d\n",
+        createThreads(count, rate, lockModeType);
+        System.out.format("Блокировка %s, время работы = %d мс, количество rollback = %d\n",
+                lockModeType,
                 System.currentTimeMillis() - start,
                 BetDAO.countRollBack);
     }
+
 
     /**
      * Создание потоков под каждого пользователя.

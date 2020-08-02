@@ -18,7 +18,6 @@ public class Bet {
     private String name;
 
     @Column(name = "rate")
-    //@OptimisticLock(excluded = true)
     private BigDecimal rate;
 
     @Version
@@ -26,7 +25,6 @@ public class Bet {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    //@OptimisticLock(excluded = true)
     private User user;
 
     public Bet() {}
